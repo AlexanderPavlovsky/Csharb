@@ -40,7 +40,7 @@ namespace Lab2
                 triangle[i] = new Triangle(a, b, c);
                 if (triangle[i].IsTriangle()== true)
                 {
-                    Console.WriteLine(triangle[i].PrintTriangel());
+                    Console.WriteLine(triangle[i].PrintTriangle());
                 }
                 else
                 {
