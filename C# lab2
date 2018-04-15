@@ -230,3 +230,308 @@ namespace Lab2
         }
     }
 }
+
+
+
+
+//GUI
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FormLab2
+{
+    public partial class Form1 : Form
+    {
+        Triangle[] triangle;
+        IsoscelesTriangle[] isoscelesTriangle;
+        int n, m;
+        string creatA, creatB, creatC;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            n = Convert.ToInt16(textBox1.Text);
+        }
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            m = Convert.ToInt16(textBox8.Text);
+        }
+        public void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            creatA = textBox2.Text;
+        }
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            creatB = textBox3.Text;
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            creatC = textBox4.Text;
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            creatA = textBox7.Text;
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            creatB = textBox6.Text;
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            creatC = textBox5.Text;
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void Transform (string s, string [] temp)
+        {
+            int c = 0;
+            string[] split = s.Split(new Char[] { ';' });
+            foreach (string sNew in split)
+            {
+                temp[c] = sNew;
+                c++;
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            triangle = new Triangle[n];
+            double[] a = new double[n];
+            double[] b = new double[n];
+            double[] c = new double[n];
+            double averageSquare = 0, minsquard = 0;
+            int quantity = 0;
+            string[] temp = new string[n];
+            Transform(creatA, temp);
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = Convert.ToDouble(temp[i]);
+            }
+            Transform(creatB, temp);
+            for (int i = 0; i < n; i++)
+            {
+                b[i] = Convert.ToDouble(temp[i]);
+            }
+            Transform(creatC, temp);
+            for (int i = 0; i < n; i++)
+            {
+                c[i] = Convert.ToDouble(temp[i]);
+            }
+            for (int i = 0; i < n; i++)
+            {
+                triangle[i] = new Triangle(a[i], b[i], c[i]);
+                if (triangle[i].IsTriangle() == true)
+                {
+                    richTextBox1.AppendText((i + 1) + ") " + triangle[i].PrintTriangle() + "\n");
+                }
+                else
+                {
+                    richTextBox1.AppendText((i + 1) + ") Triangle haven't \n");
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if (triangle[i].IsTriangle() == true)
+                {
+                    averageSquare += triangle[i].square;
+                    quantity++;
+                }
+            }
+            averageSquare /= quantity;
+            richTextBox1.AppendText("Average square triangle  = " + averageSquare);
+            quantity = 0;
+            isoscelesTriangle = new IsoscelesTriangle[m];
+            a = new double[m];
+            b = new double[m];
+            c = new double[m];
+            temp = new string[m];
+            Transform(creatA, temp);
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = Convert.ToDouble(temp[i]);
+            }
+            Transform(creatB, temp);
+            for (int i = 0; i < n; i++)
+            {
+                b[i] = Convert.ToDouble(temp[i]);
+            }
+            Transform(creatC, temp);
+            for (int i = 0; i < n; i++)
+            {
+                c[i] = Convert.ToDouble(temp[i]);
+            }
+            for (int i = 0; i < m; i++)
+            {
+                isoscelesTriangle[i] = new IsoscelesTriangle(a[i], b[i], c[i]);
+                if (isoscelesTriangle[i].IsIsoscelesTriangle() == true)
+                {
+                    richTextBox2.AppendText((i + 1) + ") " + isoscelesTriangle[i].PrintIsoscelesTriangle() + "\n");
+                }
+                else
+                {
+                    richTextBox2.AppendText((i + 1) + ") Triangle haven't or no isosceles triangle \n");
+                }
+            }
+            for (int i = 0; i < m; i++)
+            {
+                if (isoscelesTriangle[i].IsIsoscelesTriangle() == true)
+                {
+                    minsquard = isoscelesTriangle[i].square;
+                }
+            }
+            if (quantity > 1)
+            {
+                for (int i = 0; i < m; i++)
+                {
+                    if (isoscelesTriangle[i].IsIsoscelesTriangle() == true)
+                    {
+                        if (minsquard > isoscelesTriangle[i].square)
+                            minsquard = isoscelesTriangle[i].square;
+                    }
+                }
+                richTextBox2.AppendText("Minimal squard isosceles triangle = " + minsquard);
+            }
+            else
+            {
+                richTextBox2.AppendText("Minimal squard isosceles triangle = " + minsquard);
+            }
+        }
+    }
+}
+
+//Triangle
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FormLab2
+{
+    class Triangle
+    {
+        protected double sideA;
+        protected double sideB;
+        protected double sideC;
+        double a, b, c;
+        double perimeter;
+        double p;
+        public double square;
+
+        public Triangle(double sideA, double sideB, double sideC)
+        {
+            this.sideA = sideA;
+            this.sideB = sideB;
+            this.sideC = sideC;
+        }
+        public bool IsTriangle()
+        {
+            if ((sideA + sideB > sideC) && (sideB + sideC > sideA) && (sideA + sideC > sideB))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public string PrintTriangle ()
+        {
+            CornerTriangle();
+            PerimeterTriangle();
+            SquareTriangle();
+            return "Triangle is (a = " + sideA + "; b = " + sideB + "; c = " + sideC + ")\nCorners triangle are(a = " + a + "; b = " + b + "; c = " + c + ")\nPerimeter triangle is " + perimeter + "\nSquare triangle is " + square;
+        }
+        public void CornerTriangle()
+        {
+            a = (Math.Acos((Math.Pow(sideA, 2) - (Math.Pow(sideB, 2) + Math.Pow(sideC, 2))) / (-2 * sideB * sideC)) * 180) / Math.PI;
+            b = (Math.Acos((Math.Pow(sideB, 2) - (Math.Pow(sideA, 2) + Math.Pow(sideC, 2))) / (-2 * sideA * sideC)) * 180) / Math.PI;
+            c = (Math.Acos((Math.Pow(sideC, 2) - (Math.Pow(sideB, 2) + Math.Pow(sideA, 2))) / (-2 * sideB * sideA)) * 180) / Math.PI;
+        }
+        public void PerimeterTriangle()
+        {
+            perimeter = sideA + sideB + sideC;
+        }
+        public void SquareTriangle()
+        {
+            p = (sideA + sideB + sideC) / 2;
+            square = Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
+        }
+
+    }
+}
+
+//IsIsoscelesTriangle
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FormLab2
+{
+    class IsoscelesTriangle : Triangle
+    {
+
+        public IsoscelesTriangle(double sideA, double sideB, double sideC) : base(sideA, sideB, sideC)
+        {
+
+        }
+        public bool IsIsoscelesTriangle()
+        {
+            if (base.IsTriangle() && ((sideA == sideB) || (sideB == sideC) || (sideA == sideC)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public string PrintIsoscelesTriangle()
+        {
+            return PrintTriangle();
+        }
+        public void CornerIsoscelesTriangle()
+        {
+            base.CornerTriangle();
+        }
+        public void PerimeterIsoscelesTriangle()
+        {
+            base.PerimeterTriangle();
+        }
+        public void SquareIsoscelesTriangel()
+        {
+            base.SquareTriangle();
+        }
+    }
+}
