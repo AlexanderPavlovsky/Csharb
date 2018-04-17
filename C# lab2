@@ -254,6 +254,7 @@ namespace FormLab2
         IsoscelesTriangle[] isoscelesTriangle;
         int n, m;
         string creatA, creatB, creatC;
+        string creatA1, creatB1, creatC1;
         public Form1()
         {
             InitializeComponent();
@@ -292,17 +293,17 @@ namespace FormLab2
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            creatA = textBox7.Text;
+            creatA1 = textBox7.Text;
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-            creatB = textBox6.Text;
+            creatB1 = textBox6.Text;
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            creatC = textBox5.Text;
+            creatC1 = textBox5.Text;
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -372,17 +373,17 @@ namespace FormLab2
             b = new double[m];
             c = new double[m];
             temp = new string[m];
-            Transform(creatA, temp);
+            Transform(creatA1, temp);
             for (int i = 0; i < n; i++)
             {
                 a[i] = Convert.ToDouble(temp[i]);
             }
-            Transform(creatB, temp);
+            Transform(creatB1, temp);
             for (int i = 0; i < n; i++)
             {
                 b[i] = Convert.ToDouble(temp[i]);
             }
-            Transform(creatC, temp);
+            Transform(creatC1, temp);
             for (int i = 0; i < n; i++)
             {
                 c[i] = Convert.ToDouble(temp[i]);
