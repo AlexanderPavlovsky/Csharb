@@ -235,7 +235,6 @@ namespace Lab2
 
 
 //GUI
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -271,11 +270,13 @@ namespace FormLab2
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            n = Convert.ToInt16(textBox1.Text);
+
+                n = Convert.ToInt16(textBox1.Text);           
         }
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
-            m = Convert.ToInt16(textBox8.Text);
+ 
+                m = Convert.ToInt16(textBox8.Text);
         }
         public void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -314,11 +315,20 @@ namespace FormLab2
         public void Transform (string s, string [] temp)
         {
             int c = 0;
-            string[] split = s.Split(new Char[] { ';' });
-            foreach (string sNew in split)
+            string[] split = null;
+            try
             {
-                temp[c] = sNew;
-                c++;
+                split = s.Split(new Char[] { ';' });
+            
+                foreach (string sNew in split)
+                {
+                    temp[c] = sNew;
+                    c++;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("You don't write the size sides");
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -374,17 +384,17 @@ namespace FormLab2
             c = new double[m];
             temp = new string[m];
             Transform(creatA1, temp);
-            for (int i = 0; i < n; i++)
-            {
-                a[i] = Convert.ToDouble(temp[i]);
+            for (int i = 0; i < m; i++)
+            { 
+                    a[i] = Convert.ToDouble(temp[i]);
             }
             Transform(creatB1, temp);
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < m; i++)
             {
                 b[i] = Convert.ToDouble(temp[i]);
             }
             Transform(creatC1, temp);
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < m; i++)
             {
                 c[i] = Convert.ToDouble(temp[i]);
             }
@@ -426,6 +436,7 @@ namespace FormLab2
         }
     }
 }
+
 
 //Triangle
 
