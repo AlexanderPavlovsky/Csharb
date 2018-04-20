@@ -235,6 +235,7 @@ namespace Lab2
 
 
 //GUI
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -270,13 +271,11 @@ namespace FormLab2
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
-                n = Convert.ToInt16(textBox1.Text);           
+           
         }
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
- 
-                m = Convert.ToInt16(textBox8.Text);
+
         }
         public void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -333,28 +332,52 @@ namespace FormLab2
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            triangle = new Triangle[n];
-            double[] a = new double[n];
-            double[] b = new double[n];
-            double[] c = new double[n];
+           
             double averageSquare = 0, minsquard = 0;
             int quantity = 0;
-            string[] temp = new string[n];
+            try
+            {
+                n = Convert.ToInt16(textBox1.Text);
+            }
+            catch
+            {
+                MessageBox.Show("You don't write n");
+            }
+            string[] temp = null;
+            double[] a = null;
+            double[] b = null;
+            double[] c = null;
+            try
+            {
+                triangle = new Triangle[n];
+                a = new double[n];
+                b = new double[n];
+                c = new double[n];
+                temp = new string[n];
+            }
+            catch
+            {
+                MessageBox.Show("n < 0");
+                temp = new string[0];
+            }
             Transform(creatA, temp);
             for (int i = 0; i < n; i++)
             {
                 a[i] = Convert.ToDouble(temp[i]);
             }
+            Array.Clear(temp, 0, temp.Length);
             Transform(creatB, temp);
             for (int i = 0; i < n; i++)
             {
                 b[i] = Convert.ToDouble(temp[i]);
             }
+            Array.Clear(temp, 0, temp.Length);
             Transform(creatC, temp);
             for (int i = 0; i < n; i++)
             {
                 c[i] = Convert.ToDouble(temp[i]);
             }
+            Array.Clear(temp, 0, temp.Length);
             for (int i = 0; i < n; i++)
             {
                 triangle[i] = new Triangle(a[i], b[i], c[i]);
@@ -378,26 +401,45 @@ namespace FormLab2
             averageSquare /= quantity;
             richTextBox1.AppendText("Average square triangle  = " + averageSquare);
             quantity = 0;
-            isoscelesTriangle = new IsoscelesTriangle[m];
-            a = new double[m];
-            b = new double[m];
-            c = new double[m];
-            temp = new string[m];
+            try
+            {
+                m = Convert.ToInt16(textBox8.Text);
+            }
+            catch
+            {
+                MessageBox.Show("You don't write m");
+            }
+            try
+            {
+                isoscelesTriangle = new IsoscelesTriangle[m];
+                a = new double[m];
+                b = new double[m];
+                c = new double[m];
+                temp = new string[m];
+            }
+            catch
+            {
+                MessageBox.Show("m < 0");
+                temp = new string[m];
+            }
             Transform(creatA1, temp);
             for (int i = 0; i < m; i++)
-            { 
-                    a[i] = Convert.ToDouble(temp[i]);
+            {
+                a[i] = Convert.ToDouble(temp[i]);
             }
+            Array.Clear(temp, 0, temp.Length);
             Transform(creatB1, temp);
             for (int i = 0; i < m; i++)
             {
                 b[i] = Convert.ToDouble(temp[i]);
             }
+            Array.Clear(temp, 0, temp.Length);
             Transform(creatC1, temp);
             for (int i = 0; i < m; i++)
             {
                 c[i] = Convert.ToDouble(temp[i]);
             }
+            Array.Clear(temp, 0, temp.Length);
             for (int i = 0; i < m; i++)
             {
                 isoscelesTriangle[i] = new IsoscelesTriangle(a[i], b[i], c[i]);
