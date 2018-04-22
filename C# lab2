@@ -420,7 +420,7 @@ namespace FormLab2
             catch
             {
                 MessageBox.Show("m < 0");
-                temp = new string[m];
+                temp = new string[0];
             }
             Transform(creatA1, temp);
             for (int i = 0; i < m; i++)
